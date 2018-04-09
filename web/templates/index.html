@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% block left_content %}
+    <div class="article-list">
+        <ul class="article-items">
+            {% for item in articles %}
+                <li class="item">
+                    <div class="row" style="padding-bottom: 20px;">
+                        <div class="col-md-8">
+                            <h4 class="article-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h4>
+                            <div class="article-date">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <span>{{ item.add_date }}</span>
+                            </div>
+                            <div class="article-desc">
+                                <span>{{ item.excerpt }}...</span>
+                            </div>
+                        </div>
+
+                        {% if item.cover_img %}
+                            <div class="col-md-4">
+                                <a href="{{ item.get_absolute_url }}" class="article-img"><img src="{{ item.cover_img }}" alt=""></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div style="padding-top: 15px;border-top: 1px solid #efefef;color: gray">
+                        <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                        <span class="text-ca-tg">{{ item.category }}</span>
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true" style="padding-left: 10px;"></span>
+                        {% for tag in item.tags.all %}
+                            <span class="text-ca-tg">{{ tag.name }}</span>
+                        {% endfor %}
+                        <span class="read-more" style="float: right"><a href="{{ item.get_absolute_url }}">Read more >></a></span>
+                    </div>
+                </li>
+             {% empty %}
+                <p>暂无文章</p>
+            {% endfor %}
+            {% include "includes/pagination.html" with articles=page_obj %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block right_content %}
+    <div class="categories">
+        <div class="title"><h4>文章分类</h4></div>
+        <hr>
+        {% get_category as category_list %}
+        <ul>
+            {% for category in category_list %}
+                <li><a href="{% url 'blog:category' category.name %}"><span class="glyphicon glyphicon-folder-close"></span>&nbsp;&nbsp;{{ category.name }} ({{ category.num_articlies }})</a></li>
+            {% empty %}
+                <li>暂无分类</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="archives">
+        <div class="title"><h4>文章归档</h4></div>
+        <hr>
+        {% archives as date_list %}
+        <ul>
+            {% for date in date_list %}
+                <li>
+                    <a href="{% url "blog:archives_month" date.year date.month %}"> <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ date.year }}年{% if date.month < 10 %}0{{ date.month }}{% else %}{{ date.month }}{% endif %}月</a>
+                </li>
+            {% empty %}
+                暂无归档
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="tags">
+        <div class="title"><h4>标签云</h4></div>
+        <hr>
+        {% get_tags as tag_list %}
+
+        {% for tag in tag_list %}
+            <a class="tag-item" href="{% url "blog:tag_detail" tag.name %}">{{ tag.name }}</a>
+        {% empty %}
+            <p>暂无标签</p>
+        {% endfor %}
+    </div>
+{% endblock %}

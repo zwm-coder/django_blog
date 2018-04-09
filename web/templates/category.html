@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block left_content %}
+    <h3>{{ name }}</h3>
+
+    {% include "includes/timeline.html" with articles=articles %}
+
+    {% include "includes/pagination.html" with articles=page_obj %}
+{% endblock %}

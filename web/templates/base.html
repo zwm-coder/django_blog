@@ -1,0 +1,114 @@
+{% load static %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coder's Blog</title>
+    <link rel="icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/highlight/github.css' %}">
+    <link rel="stylesheet" href="{% static 'css/includes.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block header %}
+    {% endblock %}
+</head>
+<body>
+
+{#顶部导航#}
+<div class="header-nav container-fluid">
+    <div class="container">
+        <nav class="navbar top-navbar" style="margin: 0">
+            <div class="container-fluid" style="padding: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  data-target="#collapse-menu" aria-expanded="false">
+                        <span class="glyphicon glyphicon-option-horizontal"></span>
+                    </button>
+                    <a href="{% url 'blog:index' %}" class="navbar-brand">Coder's Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="collapse-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="{% url 'blog:index' %}">首页</a></li>
+                        <li><a href="{% url 'blog:archives' %}">归档</a></li>
+                        <li><a href="{% url "blog:tags" %}">标签</a></li>
+                        <li><a href="{% url "blog:about" %}">关于</a></li>
+                        <li class="hidden-sm hidden-md hidden-lg">
+                            <div class="search">
+                                <form action="{% url 'haystack_search' %}" role="search" method="get">
+                                    <div class="input-group" style="width: 100%;">
+                                        <span class="glyphicon glyphicon-search" style="position: absolute; top: 10px; left: 8px;z-index: 999;color: #909090"></span>
+                                        <input type="text" name="q" class="form-control" placeholder="搜索" style="width: 100%;padding-left: 29px;">
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="content container">
+    <div class="row">
+        <div class="left-content col-md-8 col-xs-12">
+            {% block left_content %}
+            {% endblock %}
+        </div>
+        <div class="right-content col-md-4 col-xs-12">
+
+            <div class="search hidden-xs">
+                <form action="{% url 'haystack_search' %}" role="search" method="get">
+                    <div class="input-group" style="width: 100%;">
+                        <span class="glyphicon glyphicon-search" style="position: absolute; top: 10px; left: 8px;z-index: 999;color: #909090"></span>
+                        <input type="text" name="q" class="form-control" placeholder="搜索" style="width: 100%;padding-left: 29px;">
+                    </div>
+                </form>
+            </div>
+            <div class="author hidden-xs">
+                {% get_author_info as author %}
+                <div class="avatar">
+                    <img class="img-responsive center-block" src="{{ author.avatar }}" alt="">
+                </div>
+                <div class="author-info">
+                    <div class="author-name"><h3>{{ author.nick_name }}</h3></div>
+                    <div class="author-desc">{{ author.desc }}</div>
+                    <hr>
+                    <div class="author-address">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <span>&nbsp;{{ author.address }}</span>
+                    </div>
+                    <br>
+                    <div class="author-mail">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <span>&nbsp;{{ author.email }}</span>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            {% block right_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+
+<div class="footer" style="background: #111;text-align: center;padding: 25px 0px;color: #666;">
+    <div class="container">
+        <div class="copyright">
+            <span>Copyright © 2018</span>
+            <span> &nbsp;|&nbsp; </span>
+            <span>Design by Django</span>
+            <span> &nbsp;|&nbsp; </span>
+            <span>托管于腾讯云</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

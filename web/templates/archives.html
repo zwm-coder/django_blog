@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <style>
+        .timeline ul.timeline-ul li.timeline-li span {
+            left: -15px;
+            font-size: 16px;
+            background: #f5f5f5;
+            border-radius: 0;
+            padding: 5px 0;
+            width: 40px;
+            height: 30px;
+        }
+        .timeline ul.timeline-ul li.timeline-li:hover>span {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .timeline ul.timeline-ul li.timeline-li div.content ul {
+            list-style: none;
+        }
+        .timeline ul.timeline-ul li.timeline-li div.content ul li {
+            padding: 10px 0px;
+        }
+        .timeline ul.timeline-ul li.timeline-li div.content ul li div a {
+            text-decoration: none;
+            color: #555;
+        }
+        .timeline ul.timeline-ul li.timeline-li div.content ul li div a:hover {
+            font-weight: 600;
+        }
+    </style>
+{% endblock %}
+
+{% block left_content %}
+
+    {% regroup articles by add_date.year as article_list %}
+    <div class="container">
+        <h3>归档时间轴</h3>
+
+        <div class="timeline">
+            <ul class="timeline-ul">
+                {% for item in article_list %}
+                    <li class="timeline-li">
+                        <span>{{ item.grouper }}</span>
+                        <div class="content">
+                            <ul>
+                                {% for i in item.list %}
+                                    <li>
+                                        <p class="date">{{ i.add_date }}</p>
+                                        <div>
+                                            <a href="{% url "blog:detail" i.pk %}">{{ i.title }}</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    {% include "includes/pagination.html" with articles=articles %}
+{% endblock %}

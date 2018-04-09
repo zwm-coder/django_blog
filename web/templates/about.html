@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <style>
+        .about-me,.about-site {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .about div ul {
+            list-style: none;
+            padding-left: 0px;
+        }
+        .about div ul li {
+            padding: 10px 0;
+        }
+    </style>
+{% endblock %}
+
+
+{% block left_content %}
+    <div class="about">
+        <div class="about-me about">
+            <h4>关于我</h4>
+            <div>
+                <ul>
+                    <li><span class="title-small">个人简介：</span> 在校大三学生，计算机科学与技术专业；爱好码代码、钻研技术、听音乐</li>
+                    <li><span class="title-small">技能要点：</span> Python、MySQL、Django、HTML5、CSS3、JavaScript、网络爬虫</li>
+                    <li><span class="title-small">城&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市：</span> 中国 . 重庆市</li>
+                    <li><span class="title-small">邮箱地址：</span> wenmao520996@gmail.com</li>
+                    <li><span class="title-small">联系方式：</span> QQ 3344963462</li>
+                    <li><span class="title-small">求职愿望：</span> 目前希望可以找到一个Python开发的实习岗位，薪资无太高要求，重在锻炼自我</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="about-site about">
+            <h4>关于本站</h4>
+            <div>
+                <ul>
+                    <li><span class="title-small">主要简介：</span> 本博客网站由博主自己开发而成，包括前端页面和后端逻辑处理</li>
+                    <li><span class="title-small">语言架构：</span> Python 3.6 + Django 2.0 + Bootstrap 3 + jQuery 3.1.1 + MySQL</li>
+                    <li><span class="title-small">第三方库：</span> Markdown、jieba、Whoosh、mysqlclient、django-haystack</li>
+                    <li><span class="title-small">开发周期：</span> 2 天</li>
+                    <li><span class="title-small">实现功能：</span> 基本文章编写发布、全站搜索、文章归档、文章分类、标签云、自动截取文章摘要、自动截取文章封面图、支持Markdown、响应式布局</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

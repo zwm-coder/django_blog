@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load highlight %}
+
+{% block left_content %}
+    
+    {% if query %}
+        <div class="article-list">
+            <ul class="article-items">
+                {% for foo in page.object_list %}
+                    <li class="item">
+                        <div class="row" style="padding-bottom: 20px">
+                            <div class="col-md-8">
+                                <h4 class="article-title"><a href="{{ foo.object.get_absolute_url }}">{% highlight foo.object.title with query %}</a></h4>
+                                <div class="article-date">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    <span>{{ foo.object.add_date }}</span>
+                                </div>
+                                <div class="article-desc">
+                                    <span>{% highlight foo.object.excerpt with query %}...</span>
+                                </div>
+                            </div>
+
+                            {% if foo.object.cover_img %}
+                                <div class="col-md-4">
+                                    <a href="{{ foo.object.get_absolute_url }}" class="article-img"><img src="{{ foo.object.cover_img }}" alt=""></a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div style="padding-top: 15px;border-top: 1px solid #efefef;color: gray">
+                            <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                            <span class="text-ca-tg">{{ foo.object.category }}</span>
+                            <span class="glyphicon glyphicon-tags" aria-hidden="true" style="padding-left: 10px;"></span>
+                            {% for tag in foo.object.tags.all %}
+                                <span class="text-ca-tg">{{ tag.name }}</span>
+                            {% endfor %}
+                            <span class="read-more" style="float: right"><a href="{{ foo.object.get_absolute_url }}">查看更多 >></a></span>
+                        </div>
+                    </li>
+                {% empty %}
+                    <p>没有搜索到你想要的结果！</p>
+                {% endfor %}
+                {% if page.has_previous or page.has_next %}
+                    <div class="pagination-simple">
+                        <ul class="pager">
+                            {% if page.has_previous %}
+                                <li class="previous"><a href="?q={{ query }}&amp;page={{ page.previous_page_number }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                            {% else %}
+                                <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                            {% endif %}
+                            {% if page.has_next %}
+                                <li class="next"><a href="?q={{ query }}&amp;page={{ page.next_page_number }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                            {% else %}
+                                <li class="next disabled"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock %}

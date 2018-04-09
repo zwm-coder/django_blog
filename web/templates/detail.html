@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <style>
+        img {
+            width: 100%;
+            height: 100%;
+            margin: 10px 0px;
+        }
+    </style>
+{% endblock %}
+
+{% block left_content %}
+    <div class="article-detail">
+        <div class="content-head">
+            <h4>{{ article.title }}</h4>
+            <div style="color: #505050; font-size: small;">
+                <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+                <span class="text-ca-tg">{{ article.category }}</span>
+                <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                {% for tag in article.tags.all %}
+                    <span class="text-ca-tg">{{ tag.name }}</span>
+                {% endfor %}
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span class="text-ca-tg">{{ article.mod_date }}</span>
+            </div>
+        </div>
+        <div class="content-body">{{ article.content|safe }}</div>
+    </div>
+
+    <div>
+        <ul class="pager">
+            {% with article.get_previous_article as previous_article %}
+                {% if previous_article %}
+                    <li class="previous"><a href="{{ previous_article.get_absolute_url }}"><span aria-hidden="true">&larr;</span> {{ previous_article.title }}</a></li>
+                {% endif %}
+            {% endwith %}
+
+            {% with article.get_next_article as next_article %}
+                {% if next_article %}
+                    <li class="next"><a href="{{ next_article.get_absolute_url }}">{{ next_article.title }} <span aria-hidden="true">&rarr;</span></a></li>
+                {% endif %}
+            {% endwith %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block right_content %}
+    <div class="widget widget-content">
+        <h4 class="widget-title">文章目录</h4>
+        <hr>
+        {{ article.toc|safe }}
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{#变量为articles#}
+
+<div class="timeline">
+    <ul class="timeline-ul">
+        {% for item in articles %}
+            <li class="timeline-li">
+                <span></span>
+                <div class="content">
+                    <p class="date">{{ item.add_date }}</p>
+                    <div class="title">
+                        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
