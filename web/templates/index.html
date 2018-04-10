@@ -6,31 +6,36 @@
             {% for item in articles %}
                 <li class="item">
                     <div class="row" style="padding-bottom: 20px;">
-                        <div class="col-md-8">
+                        {% if item.cover_img %}
+                            <div class="col-md-4 col-sm-4 col-md-push-8">
+                                <a href="{{ item.get_absolute_url }}" class="article-img"><img class="img-responsive" src="{{ item.cover_img }}" alt=""></a>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-md-8 col-sm-8 col-md-pull-4">
                             <h4 class="article-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h4>
-                            <div class="article-date">
+                            <div class="article-date hidden-xs">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 <span>{{ item.add_date }}</span>
                             </div>
                             <div class="article-desc">
-                                <span>{{ item.excerpt }}...</span>
+                                <span class="text-muted">{{ item.excerpt }}...</span>
                             </div>
                         </div>
 
-                        {% if item.cover_img %}
-                            <div class="col-md-4">
-                                <a href="{{ item.get_absolute_url }}" class="article-img"><img src="{{ item.cover_img }}" alt=""></a>
-                            </div>
-                        {% endif %}
                     </div>
                     <div style="padding-top: 15px;border-top: 1px solid #efefef;color: gray">
                         <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
                         <span class="text-ca-tg">{{ item.category }}</span>
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true" style="padding-left: 10px;"></span>
+                        <span class="glyphicon glyphicon-tags hidden-xs" aria-hidden="true" style="padding-left: 10px;"></span>
                         {% for tag in item.tags.all %}
-                            <span class="text-ca-tg">{{ tag.name }}</span>
+                            <span class="text-ca-tg hidden-xs">{{ tag.name }}</span>
                         {% endfor %}
-                        <span class="read-more" style="float: right"><a href="{{ item.get_absolute_url }}">Read more >></a></span>
+                        <span class="read-more hidden-xs" style="float: right"><a href="{{ item.get_absolute_url }}">查看全文 <span class="glyphicon glyphicon-menu-right"></span></a></span>
+                        <span class="read-more hidden-md hidden-lg hidden-sm" style="float: right">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        <span>{{ item.add_date }}</span>
+                        </span>
                     </div>
                 </li>
              {% empty %}

@@ -26,9 +26,9 @@
             <div class="container-fluid" style="padding: 0">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  data-target="#collapse-menu" aria-expanded="false">
-                        <span class="glyphicon glyphicon-option-horizontal"></span>
+                        <span class="glyphicon glyphicon-align-center text-muted"></span>
                     </button>
-                    <a href="{% url 'blog:index' %}" class="navbar-brand">Coder's Blog</a>
+                    <a href="{% url 'blog:index' %}" class="navbar-brand">Coder</a>
                 </div>
                 <div class="collapse navbar-collapse" id="collapse-menu">
                     <ul class="nav navbar-nav navbar-right">
@@ -110,5 +110,24 @@
     </div>
 </div>
 
+<button class="goto-top" onclick="backToTop()"><span class="glyphicon glyphicon-arrow-up"></span></button>
+<script>
+    var backButton = $(".goto-top");
+    function backToTop() {
+        $("html, body").animate({
+            scrollTop: 0
+        }, 800);
+
+    }
+    $(window).on('scroll', function () {
+        if($(window).scrollTop() > $(window).height()) {
+            backButton.fadeIn();
+        }else{
+            backButton.fadeOut();
+        }
+
+    })
+    $(window).trigger('scroll');
+</script>
 </body>
 </html>

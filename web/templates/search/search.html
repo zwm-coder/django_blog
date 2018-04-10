@@ -8,33 +8,37 @@
             <ul class="article-items">
                 {% for foo in page.object_list %}
                     <li class="item">
-                        <div class="row" style="padding-bottom: 20px">
-                            <div class="col-md-8">
+                        <div class="row" style="padding-bottom: 20px;">
+                            {% if foo.object.cover_img %}
+                                <div class="col-md-4 col-sm-4 col-md-push-8">
+                                    <a href="{{ foo.object.get_absolute_url }}" class="article-img"><img class="img-responsive" src="{{ foo.object.cover_img }}" alt=""></a>
+                                </div>
+                            {% endif %}
+
+                            <div class="col-md-8 col-sm-8 col-md-pull-4">
                                 <h4 class="article-title"><a href="{{ foo.object.get_absolute_url }}">{% highlight foo.object.title with query %}</a></h4>
-                                <div class="article-date">
+                                <div class="article-date hidden-xs">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                     <span>{{ foo.object.add_date }}</span>
                                 </div>
                                 <div class="article-desc">
-                                    <span>{% highlight foo.object.excerpt with query %}...</span>
+                                    <span class="text-muted">{% highlight foo.object.excerpt with query %}...</span>
                                 </div>
                             </div>
 
-                            {% if foo.object.cover_img %}
-                                <div class="col-md-4">
-                                    <a href="{{ foo.object.get_absolute_url }}" class="article-img"><img src="{{ foo.object.cover_img }}" alt=""></a>
-                                </div>
-                            {% endif %}
                         </div>
-
                         <div style="padding-top: 15px;border-top: 1px solid #efefef;color: gray">
                             <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
                             <span class="text-ca-tg">{{ foo.object.category }}</span>
-                            <span class="glyphicon glyphicon-tags" aria-hidden="true" style="padding-left: 10px;"></span>
+                            <span class="glyphicon glyphicon-tags hidden-xs" aria-hidden="true" style="padding-left: 10px;"></span>
                             {% for tag in foo.object.tags.all %}
-                                <span class="text-ca-tg">{{ tag.name }}</span>
+                                <span class="text-ca-tg hidden-xs">{{ tag.name }}</span>
                             {% endfor %}
-                            <span class="read-more" style="float: right"><a href="{{ foo.object.get_absolute_url }}">查看更多 >></a></span>
+                            <span class="read-more hidden-xs" style="float: right"><a href="{{ foo.object.get_absolute_url }}">查看全文 <span class="glyphicon glyphicon-menu-right"></span></a></span>
+                            <span class="read-more hidden-md hidden-lg hidden-sm" style="float: right">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            <span>{{ foo.object.add_date }}</span>
+                            </span>
                         </div>
                     </li>
                 {% empty %}

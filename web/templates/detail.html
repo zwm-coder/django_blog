@@ -17,9 +17,9 @@
             <div style="color: #505050; font-size: small;">
                 <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
                 <span class="text-ca-tg">{{ article.category }}</span>
-                <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-tags hidden-xs" aria-hidden="true"></span>
                 {% for tag in article.tags.all %}
-                    <span class="text-ca-tg">{{ tag.name }}</span>
+                    <span class="text-ca-tg hidden-xs">{{ tag.name }}</span>
                 {% endfor %}
                 <span class="glyphicon glyphicon-calendar"></span>
                 <span class="text-ca-tg">{{ article.mod_date }}</span>

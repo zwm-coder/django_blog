@@ -25,7 +25,7 @@ SECRET_KEY = 'rq0&l&1@yd-+omz8tsr_#=7v=xg$iij)*8a12#@atwq6x!aeta'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['118.24.103.247']
+ALLOWED_HOSTS = ['118.24.103.247', '127.0.0.1']
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web',
     'haystack',
-    'gunicorn',
+    # 'gunicorn',
 
 ]
 
@@ -85,7 +85,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': os.environ['mysql_pwd']
+        'PASSWORD': 'root'
     }
 }
 

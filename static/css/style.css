@@ -26,7 +26,7 @@ body, html{
 }
 
 .article-title {
-    margin: 0;
+    margin: 10px 0 10px 0;
 }
 .article-title a{
     text-decoration: none;
@@ -194,4 +194,18 @@ body, html{
 /*搜索关键词高亮*/
 span.highlighted {
     color: red;
+}
+
+/*回到顶部*/
+.goto-top {
+    position: fixed;
+    bottom: 75px;
+    right: 30px;
+    padding: 3px 8px;
+    background-color: #343a40;
+    opacity: 0.5;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    outline-style: none;
 }
